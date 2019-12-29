@@ -1,8 +1,10 @@
 resource "kubernetes_deployment" "cloudcommons" {
+  count = length(var.VERSIONS)
   metadata {
-    name = local.full_name
+    name = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
     labels = {
       app         = local.full_name
+      version     = var.VERSIONS[count.index].docker_tag
       environment = local.environment
     }
   }
@@ -12,6 +14,7 @@ resource "kubernetes_deployment" "cloudcommons" {
     selector {
       match_labels = {
         app         = local.full_name
+        version     = var.VERSIONS[count.index].docker_tag
         environment = local.environment
       }
     }
@@ -19,7 +22,8 @@ resource "kubernetes_deployment" "cloudcommons" {
     template {
       metadata {
         labels = {
-          app         = local.full_name
+          app         = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+          version     = var.VERSIONS[count.index].docker_tag
           environment = local.environment
         }
       }
@@ -33,8 +37,8 @@ resource "kubernetes_deployment" "cloudcommons" {
         }
 
         container {
-          image = var.DEPLOYMENT_IMAGE
-          name  = local.full_name
+          image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
+          name  = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
 
           resources {
             dynamic "limits" {

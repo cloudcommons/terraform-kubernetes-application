@@ -1,22 +1,19 @@
-locals {
-  service_name = kubernetes_service.cloudcommons[0].metadata[0].name
-  service_port = kubernetes_service.cloudcommons[0].spec[0].port[0].port
-}
-
 resource "kubernetes_service" "cloudcommons" {
-  count = var.SERVICE_ENABLED == true ? 1 : 0  
+  count = var.SERVICE_ENABLED == true ? length(var.VERSIONS) : 0
   metadata {
-    name = local.full_name
+    name = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
     labels = {
       app         = local.full_name
+      version     = var.VERSIONS[count.index].docker_tag
       environment = local.environment
     }
   }
 
   spec {
     selector = {
-      app         = kubernetes_deployment.cloudcommons.metadata[0].labels.app
-      environment = kubernetes_deployment.cloudcommons.metadata[0].labels.environment
+        app         = local.full_name
+        version     = var.VERSIONS[count.index].docker_tag
+        environment = local.environment
     }
 
     session_affinity = var.SERVICE_SESSION_AFFINITY

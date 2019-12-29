@@ -8,14 +8,16 @@ variable "DEPLOYMENT_IMAGE" {
   description = "(Required) Deployment Docker Image, including private registry, when required. Do not include tag"
 }
 
-variable "INGRESS_PATHS" {
+variable "VERSIONS" {
   type = list(object({
     path         = string
-    service_name = string
-    service_port = number
+    docker_tag   = string
   }))
   description = "(Optional) List of Ingress path rules"
-  default     = []
+  default     = [{
+    path = null
+    docker_tag = "latest"
+  }]
 }
 
 variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
