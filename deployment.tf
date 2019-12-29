@@ -1,7 +1,7 @@
 resource "kubernetes_deployment" "cloudcommons" {
   count = length(var.VERSIONS)
   metadata {
-    name      = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+    name      = "${local.full_name}-${replace(var.VERSIONS[count.index].docker_tag, ".", "-")}"
     namespace = local.namespace
     labels = {
       app         = local.full_name
@@ -48,7 +48,7 @@ resource "kubernetes_deployment" "cloudcommons" {
 
         container {
           image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
-          name  = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].docker_tag, ".", "-")}"
 
           dynamic "volume_mount" {
             for_each = var.DEPLOYMENT_SECRET_VOLUMES
@@ -81,8 +81,8 @@ resource "kubernetes_deployment" "cloudcommons" {
             for_each = var.LIVENESS_PROBE != null ? [var.LIVENESS_PROBE] : []
             content {
               http_get {
-                path = liveness_probe.value.path
-                port = liveness_probe.value.port
+                path = var.VERSIONS[count.index].path
+                port = var.SERVICE_PORT
               }
 
               initial_delay_seconds = liveness_probe.value.initial_delay
@@ -95,8 +95,8 @@ resource "kubernetes_deployment" "cloudcommons" {
             for_each = var.READINESS_PROBE != null ? [var.READINESS_PROBE] : []
             content {
               http_get {
-                path = readiness_probe.value.path
-                port = readiness_probe.value.port
+                path = var.VERSIONS[count.index].path
+                port = var.SERVICE_PORT
               }
 
               initial_delay_seconds = readiness_probe.value.initial_delay

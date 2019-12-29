@@ -101,8 +101,6 @@ variable "NAMESPACE_ANNOTATIONS" {
 
 variable "LIVENESS_PROBE" {
   type = object({
-    path              = string
-    port              = number
     initial_delay     = number
     period_seconds    = number
     failure_threshold = number
@@ -113,8 +111,6 @@ variable "LIVENESS_PROBE" {
 
 variable "READINESS_PROBE" {
   type = object({
-    path              = string
-    port              = number
     initial_delay     = number
     period_seconds    = number
     failure_threshold = number
