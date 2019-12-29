@@ -22,6 +22,12 @@ variable "VERSIONS" {
   }]
 }
 
+variable "ENV" {
+  type        = map(string)
+  description = "(Optional) Deployment environment variables"
+  default     = {}
+}
+
 variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
   type        = string
   description = " (Optional) ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. For more info see Kubernetes reference"

@@ -48,7 +48,15 @@ resource "kubernetes_deployment" "cloudcommons" {
 
         container {
           image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
-          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"
+          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"          
+
+          dynamic "env" {
+            for_each = var.ENV
+            content {
+              name = env.key
+              value = env.value              
+            }
+          }
 
           dynamic "volume_mount" {
             for_each = var.DEPLOYMENT_SECRET_VOLUMES

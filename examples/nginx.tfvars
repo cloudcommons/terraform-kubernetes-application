@@ -1,6 +1,10 @@
 APP_NAME            = "cloudcommons-nginx"
 DEPLOYMENT_REPLICAS = 1
 DEPLOYMENT_IMAGE    = "nginxdemos/hello"
+ENV = {
+  ENV1 = "value1"
+  ENV2 = "value2"
+}
 VERSIONS = [
   {
     name = "latest"
