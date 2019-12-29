@@ -7,7 +7,7 @@ resource "kubernetes_ingress" "cloudcommons" {
 
   spec {
     dynamic "backend" {
-      for_each = var.SERVICE_ENABLED == true ? [1] : [] # Default back-end
+      for_each = var.SERVICE_ENABLED == true && var.INGRESS_DEFAULT_BACKEND_ENABLED == true ? [1] : [] # Default back-end
       content {
         service_name = kubernetes_service.cloudcommons[backend.key].metadata[0].name
         service_port = kubernetes_service.cloudcommons[backend.key].spec[0].port[0].port

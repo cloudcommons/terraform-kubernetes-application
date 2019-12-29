@@ -10,20 +10,20 @@ variable "DEPLOYMENT_IMAGE" {
 
 variable "VERSIONS" {
   type = list(object({
-    path         = string
-    docker_tag   = string
+    path       = string
+    docker_tag = string
   }))
   description = "(Optional) List of Ingress path rules"
-  default     = [{
-    path = null
+  default = [{
+    path       = null
     docker_tag = "latest"
   }]
 }
 
 variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
-  type = string
+  type        = string
   description = " (Optional) ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. For more info see Kubernetes reference"
-  default = null  
+  default     = null
 }
 
 
@@ -162,11 +162,17 @@ variable "INGRESS_ANNOTATIONS" {
   default     = {}
 }
 
-variable "INGRESS_TLS" {  
+variable "INGRESS_TLS" {
   type = object({
-    hosts = list(string)
+    hosts       = list(string)
     secret_name = string
   })
   description = "(Optional) TLS configuration for the Ingress. Default to null"
-  default = null
+  default     = null
+}
+
+variable "INGRESS_DEFAULT_BACKEND_ENABLED" {
+  type        = bool
+  description = "(Optional) Disables the default back-end for the ingress. Defaults to false. If true, the first version defined in VERSIONS will be used as default back-end"
+  default     = false
 }
