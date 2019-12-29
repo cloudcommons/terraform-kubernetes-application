@@ -5,7 +5,7 @@ VERSIONS = [
   {
     name = "latest"
     docker_tag = "latest"
-    path       = "/latest"
+    path       = "/"
   },
   {
     name = "v1.0"
