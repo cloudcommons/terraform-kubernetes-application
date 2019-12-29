@@ -1,6 +1,7 @@
 resource "kubernetes_ingress" "cloudcommons" {
   metadata {
     name        = local.full_name
+    namespace   = local.namespace
     annotations = var.INGRESS_ANNOTATIONS
     labels      = var.LABELS
   }
