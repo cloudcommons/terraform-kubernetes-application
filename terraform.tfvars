@@ -11,15 +11,22 @@ VERSIONS = [
   }
 ]
 DEPLOYMENT_IMAGE_PULL_REQUEST = "my-registry-secret"
+DEPLOYMENT_SECRET_VOLUMES = [
+  {
+    name       = "settings"
+    mount_path = "/app/config"
+    read_only  = true
+  }
+]
 LABELS = {
   mylabel = "myvalue"
 }
 NAMESPACE_ANNOTATIONS = {
   myannotation = "myvalue"
 }
-LIVENESS_PROBE_PATH      = "/"
-SERVICE_PORT             = 80
-SERVICE_TYPE             = "ClusterIP"
+LIVENESS_PROBE_PATH = "/"
+SERVICE_PORT        = 80
+SERVICE_TYPE        = "ClusterIP"
 INGRESS_ANNOTATIONS = {
   "kubernetes.io/ingress.class" = "test-dev"
 }

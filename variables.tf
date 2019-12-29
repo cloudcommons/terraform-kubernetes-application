@@ -26,6 +26,15 @@ variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
   default     = null
 }
 
+variable "DEPLOYMENT_SECRET_VOLUMES" {
+  type = list(object({    
+    name       = string
+    mount_path = string
+    read_only  = bool
+  }))
+  default = []
+}
+
 
 variable "DEPLOYMENT_REPLICAS" {
   type        = number

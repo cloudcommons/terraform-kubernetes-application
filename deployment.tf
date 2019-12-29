@@ -36,9 +36,27 @@ resource "kubernetes_deployment" "cloudcommons" {
           }
         }
 
+        dynamic "volume" {
+          for_each = var.DEPLOYMENT_SECRET_VOLUMES
+          content {
+            secret {
+              secret_name = volume.value.name
+            }
+          }
+        }
+
         container {
           image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
           name  = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+
+          dynamic "volume_mount" {
+            for_each = var.DEPLOYMENT_SECRET_VOLUMES
+            content {
+              name       = volume_mount.value.name
+              mount_path = volume_mount.value.mount_path
+              read_only  = volume_mount.value.read_only
+            }
+          }
 
           resources {
             dynamic "limits" {
