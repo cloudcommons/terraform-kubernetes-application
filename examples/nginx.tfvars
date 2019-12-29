@@ -36,3 +36,7 @@ LIVENESS_PROBE = {
 INGRESS_ANNOTATIONS = {
   "kubernetes.io/ingress.class" = "nginx"
 }
+# INGRESS_TLS = {
+#   hosts = ["my.nginx.local"]
+#   secret_name = "my-tls-secrets"
+# }
