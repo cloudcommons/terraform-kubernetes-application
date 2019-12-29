@@ -20,4 +20,7 @@ You can add the following features by creating your own terraform modules and re
 ## How to use
 
 You can find the full list of paramteres [here](variables.tf)
-You can find an example configuration file [here](examples/sample.tfvars)
+You can find an example configuration file [here](examples/nginx.tfvars)
+!!! Important
+The nginx example assumes a nginx-ingress controller called "nginx" is deployed in the cluster. You should use the nginx-ingress controller public IP to access this deployment
+!!!
