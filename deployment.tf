@@ -1,7 +1,7 @@
 resource "kubernetes_deployment" "cloudcommons" {
   count = length(var.VERSIONS)
   metadata {
-    name = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+    name      = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
     namespace = local.namespace
     labels = {
       app         = local.full_name
@@ -23,7 +23,7 @@ resource "kubernetes_deployment" "cloudcommons" {
     template {
       metadata {
         labels = {
-          app         = "${local.full_name}-${var.VERSIONS[count.index].docker_tag}"
+          app         = local.full_name
           version     = var.VERSIONS[count.index].docker_tag
           environment = local.environment
         }
