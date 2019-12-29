@@ -77,15 +77,30 @@ resource "kubernetes_deployment" "cloudcommons" {
           }
 
           dynamic "liveness_probe" {
-            for_each = var.LIVENESS_PROBE_PATH != null ? [1] : []
+            for_each = var.LIVENESS_PROBE != null ? [var.LIVENESS_PROBE] : []
             content {
               http_get {
-                path = var.LIVENESS_PROBE_PATH
-                port = var.LIVENESS_PROBE_PORT
+                path = liveness_probe.value.path
+                port = liveness_probe.value.port
               }
 
-              initial_delay_seconds = var.LIVENESS_PROBE_INITIAL_DELAY
-              period_seconds        = var.LIVENESS_PROBE_PERIOD
+              initial_delay_seconds = liveness_probe.value.initial_delay
+              period_seconds        = liveness_probe.value.period_seconds
+              failure_threshold     = liveness_probe.value.failure_threshold
+            }
+          }
+
+          dynamic "readiness_probe" {
+            for_each = var.READINESS_PROBE != null ? [var.READINESS_PROBE] : []
+            content {
+              http_get {
+                path = readiness_probe.value.path
+                port = readiness_probe.value.port
+              }
+
+              initial_delay_seconds = readiness_probe.value.initial_delay
+              period_seconds        = readiness_probe.value.period_seconds
+              failure_threshold     = readiness_probe.value.failure_threshold
             }
           }
         }

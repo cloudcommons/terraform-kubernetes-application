@@ -28,7 +28,7 @@ variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
 
 # TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
 variable "DEPLOYMENT_SECRET_VOLUMES" {
-  type = list(object({    
+  type = list(object({
     name       = string
     mount_path = string
     read_only  = bool
@@ -100,29 +100,53 @@ variable "NAMESPACE_ANNOTATIONS" {
   default     = {}
 }
 
-variable "LIVENESS_PROBE_PATH" {
-  type        = string
-  description = "(Optional) If specified, creates a liveness probe to the given path."
+variable "LIVENESS_PROBE" {
+  type = object({
+    path              = string
+    port              = number
+    initial_delay     = number
+    period_seconds    = number
+    failure_threshold = number
+  })
+  description = "(Optional) Application liveness probe"
   default     = null
 }
 
-variable "LIVENESS_PROBE_PORT" {
-  type        = number
-  description = "(Optional) Liveness probe port. Defaults to 80"
-  default     = 80
+variable "READINESS_PROBE" {
+  type = object({
+    path              = string
+    port              = number
+    initial_delay     = number
+    period_seconds    = number
+    failure_threshold = number
+  })
+  description = "(Optional) Application readyness probe"
+  default     = null
 }
 
-variable "LIVENESS_PROBE_INITIAL_DELAY" {
-  type        = number
-  description = "(Optional) Liveness probe initial delay, in seconds. Defualt to 30"
-  default     = 30
-}
+# variable "LIVENESS_PROBE_PATH" {
+#   type        = string
+#   description = "(Optional) If specified, creates a liveness probe to the given path."
+#   default     = null
+# }
 
-variable "LIVENESS_PROBE_PERIOD" {
-  type        = number
-  description = "(Optional) Liveness probe period after initialisation, in seconds. Defualt to 10"
-  default     = 10
-}
+# variable "LIVENESS_PROBE_PORT" {
+#   type        = number
+#   description = "(Optional) Liveness probe port. Defaults to 80"
+#   default     = 80
+# }
+
+# variable "LIVENESS_PROBE_INITIAL_DELAY" {
+#   type        = number
+#   description = "(Optional) Liveness probe initial delay, in seconds. Defualt to 30"
+#   default     = 30
+# }
+
+# variable "LIVENESS_PROBE_PERIOD" {
+#   type        = number
+#   description = "(Optional) Liveness probe period after initialisation, in seconds. Defualt to 10"
+#   default     = 10
+# }
 
 variable "SERVICE_SESSION_AFFINITY" {
   type        = string

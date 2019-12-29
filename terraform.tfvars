@@ -24,9 +24,22 @@ LABELS = {
 NAMESPACE_ANNOTATIONS = {
   myannotation = "myvalue"
 }
-LIVENESS_PROBE_PATH = "/"
-SERVICE_PORT        = 80
-SERVICE_TYPE        = "ClusterIP"
+READINESS_PROBE = {
+  path              = "/ready"
+  port              = 100
+  initial_delay     = 30
+  period_seconds    = 10
+  failure_threshold = null
+}
+LIVENESS_PROBE = {
+  path              = "/live"
+  port              = 101
+  initial_delay     = 31
+  period_seconds    = 11
+  failure_threshold = null
+}
+SERVICE_PORT = 80
+SERVICE_TYPE = "ClusterIP"
 INGRESS_ANNOTATIONS = {
   "kubernetes.io/ingress.class" = "test-dev"
 }
