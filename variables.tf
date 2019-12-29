@@ -36,7 +36,6 @@ variable "DEPLOYMENT_SECRET_VOLUMES" {
   default = []
 }
 
-
 variable "DEPLOYMENT_REPLICAS" {
   type        = number
   description = "(Optional) Number of deployment replicas. Defaults to 1"

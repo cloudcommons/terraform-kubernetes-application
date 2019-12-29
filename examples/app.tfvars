@@ -1,5 +1,6 @@
-APP_NAME         = "test"
-DEPLOYMENT_IMAGE = "test"
+APP_NAME            = "test"
+DEPLOYMENT_REPLICAS = 1
+DEPLOYMENT_IMAGE    = "test"
 VERSIONS = [
   {
     docker_tag = "v1.0"
