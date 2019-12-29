@@ -20,4 +20,4 @@ You can add the following features by creating your own terraform modules and re
 ## How to use
 
 You can find the full list of paramteres [here](variables.tf)
-You can find an example configuration file [here](examples/app.tfvars)
+You can find an example configuration file [here](examples/sample.tfvars)
