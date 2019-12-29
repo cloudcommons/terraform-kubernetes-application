@@ -26,6 +26,7 @@ variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
   default     = null
 }
 
+# TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
 variable "DEPLOYMENT_SECRET_VOLUMES" {
   type = list(object({    
     name       = string

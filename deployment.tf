@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "cloudcommons" {
             name = var.DEPLOYMENT_IMAGE_PULL_REQUEST
           }
         }
-
+        # TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
         dynamic "volume" {
           for_each = var.DEPLOYMENT_SECRET_VOLUMES
           content {
