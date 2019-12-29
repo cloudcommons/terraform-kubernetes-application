@@ -1,27 +1,34 @@
 APP_NAME            = "cloudcommons-nginx"
 DEPLOYMENT_REPLICAS = 1
-DEPLOYMENT_IMAGE    = "nginx"
+DEPLOYMENT_IMAGE    = "nginxdemos/hello"
 VERSIONS = [
   {
+    name = "latest"
     docker_tag = "latest"
-    path       = "/"
-  }
+    path       = "/latest"
+  },
+  {
+    name = "v1.0"
+    docker_tag = "latest"
+    path       = "/v1.0"
+  },
+  {
+    name = "v1.1"
+    docker_tag = "latest"
+    path       = "/v1.1"
+  }     
 ]
 SERVICE_PORT = 80
 READINESS_PROBE = {
-  path              = "/"
-  port              = 80
-  initial_delay     = 30
+  initial_delay     = 5
   period_seconds    = 10
   failure_threshold = null
 }
 LIVENESS_PROBE = {
-  path              = "/"
-  port              = 80
-  initial_delay     = 30
+  initial_delay     = 5
   period_seconds    = 10
   failure_threshold = null
 }
 INGRESS_ANNOTATIONS = {
-  "kubernetes.io/ingress.class" = "cloudcommons-test"
+  "kubernetes.io/ingress.class" = "nginx"
 }

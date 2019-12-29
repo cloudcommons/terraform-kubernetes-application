@@ -10,11 +10,13 @@ variable "DEPLOYMENT_IMAGE" {
 
 variable "VERSIONS" {
   type = list(object({
+    name       = string
     path       = string
     docker_tag = string
   }))
   description = "(Optional) List of Ingress path rules"
   default = [{
+    name       = "latest"
     path       = null
     docker_tag = "latest"
   }]

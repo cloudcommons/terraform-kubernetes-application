@@ -3,10 +3,12 @@ DEPLOYMENT_REPLICAS = 1
 DEPLOYMENT_IMAGE    = "test"
 VERSIONS = [
   {
+    name       = "v1-0"
     docker_tag = "v1.0"
     path       = null # Terraform doesn't support default value in objects. Null will make this script to automatically generate the path
   },
   {
+    name       = "v1-1"
     docker_tag = "v1.1"
     path       = null
   }

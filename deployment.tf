@@ -1,11 +1,11 @@
 resource "kubernetes_deployment" "cloudcommons" {
   count = length(var.VERSIONS)
   metadata {
-    name      = "${local.full_name}-${replace(var.VERSIONS[count.index].docker_tag, ".", "-")}"
+    name      = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"
     namespace = local.namespace
     labels = {
       app         = local.full_name
-      version     = var.VERSIONS[count.index].docker_tag
+      version     = var.VERSIONS[count.index].name
       environment = local.environment
     }
   }
@@ -15,7 +15,7 @@ resource "kubernetes_deployment" "cloudcommons" {
     selector {
       match_labels = {
         app         = local.full_name
-        version     = var.VERSIONS[count.index].docker_tag
+        version     = var.VERSIONS[count.index].name
         environment = local.environment
       }
     }
@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "cloudcommons" {
       metadata {
         labels = {
           app         = local.full_name
-          version     = var.VERSIONS[count.index].docker_tag
+          version     = var.VERSIONS[count.index].name
           environment = local.environment
         }
       }
@@ -48,7 +48,7 @@ resource "kubernetes_deployment" "cloudcommons" {
 
         container {
           image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
-          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].docker_tag, ".", "-")}"
+          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"
 
           dynamic "volume_mount" {
             for_each = var.DEPLOYMENT_SECRET_VOLUMES
