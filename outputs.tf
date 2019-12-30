@@ -1,3 +1,8 @@
+output "name" {
+  description = "Application full name"
+  value = local.full_name
+}
+
 output "namespace" {
   description = "Namespace created for this application"
   value       = local.namespace
