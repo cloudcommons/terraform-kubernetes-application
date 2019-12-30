@@ -28,11 +28,18 @@ variable "ENV" {
   default     = {}
 }
 
-variable "DEPLOYMENT_IMAGE_PULL_REQUEST" {
+variable "DEPLOYMENT_IMAGE_PULL_SECRET" {
   type        = string
   description = " (Optional) ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. For more info see Kubernetes reference"
   default     = null
 }
+
+variable "DEPLOYMENT_IMAGE_PULL_POLICY" {
+  type        = string
+  description = "(Optional) Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. For more info see Kubernetes reference"
+  default     = "Always"
+}
+
 
 # TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
 variable "DEPLOYMENT_SECRET_VOLUMES" {

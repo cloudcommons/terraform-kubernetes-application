@@ -31,9 +31,9 @@ resource "kubernetes_deployment" "cloudcommons" {
 
       spec {
         dynamic "image_pull_secrets" {
-          for_each = var.DEPLOYMENT_IMAGE_PULL_REQUEST != null ? [1] : []
+          for_each = var.DEPLOYMENT_IMAGE_PULL_SECRET != null ? [1] : []
           content {
-            name = var.DEPLOYMENT_IMAGE_PULL_REQUEST
+            name = var.DEPLOYMENT_IMAGE_PULL_SECRET
           }
         }
         # TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
@@ -47,8 +47,9 @@ resource "kubernetes_deployment" "cloudcommons" {
         }
 
         container {
-          image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
           name  = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"          
+          image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
+          image_pull_policy = var.DEPLOYMENT_IMAGE_PULL_POLICY          
 
           dynamic "env" {
             for_each = var.ENV
