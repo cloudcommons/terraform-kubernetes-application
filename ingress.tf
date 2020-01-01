@@ -15,11 +15,12 @@ resource "kubernetes_ingress" "cloudcommons" {
       }
     }
 
-    rule {
-      http {
-        dynamic "path" {
-          for_each = var.SERVICE_ENABLED == true ? var.VERSIONS : []
-          content {
+    dynamic "rule" {
+      for_each = var.SERVICE_ENABLED == true ? var.VERSIONS : []
+      content {
+        host = path.value.hostname
+        http {
+          path {
             backend {
               service_name = kubernetes_service.cloudcommons[path.key].metadata[0].name
               service_port = kubernetes_service.cloudcommons[path.key].spec[0].port[0].port

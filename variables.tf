@@ -10,15 +10,17 @@ variable "DEPLOYMENT_IMAGE" {
 
 variable "VERSIONS" {
   type = list(object({
+    hostname   = string
     name       = string
     path       = string
-    docker_tag = string
+    docker_tag = string    
   }))
   description = "(Optional) List of Ingress path rules"
   default = [{
+    hostname   = null
     name       = "latest"
     path       = null
-    docker_tag = "latest"
+    docker_tag = "latest"    
   }]
 }
 
@@ -207,10 +209,10 @@ variable "INGRESS_ANNOTATIONS" {
 }
 
 variable "INGRESS_TLS" {
-  type = object({
+  type = list(object({
     hosts       = list(string)
     secret_name = string
-  })
+  }))
   description = "(Optional) TLS configuration for the Ingress. Default to null"
   default     = null
 }
