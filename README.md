@@ -25,3 +25,11 @@ You can find an example configuration file [here](examples/nginx.tfvars)
 
 **IMPORTANT**
 The nginx example assumes a nginx-ingress controller called "nginx" is deployed in the cluster. You should use the nginx-ingress controller public IP to access this deployment
+
+You can install an nginx-ingress controller with the following command:
+
+```helm
+helm install stable/nginx-ingress \
+    --namespace cloudcommons-nginx-default \
+    --set controller.replicaCount=2
+```
