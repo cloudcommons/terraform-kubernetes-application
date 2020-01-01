@@ -18,15 +18,15 @@ resource "kubernetes_ingress" "cloudcommons" {
     dynamic "rule" {
       for_each = var.SERVICE_ENABLED == true ? var.VERSIONS : []
       content {
-        host = path.value.hostname
+        host = rule.value.hostname
         http {
           path {
             backend {
-              service_name = kubernetes_service.cloudcommons[path.key].metadata[0].name
-              service_port = kubernetes_service.cloudcommons[path.key].spec[0].port[0].port
+              service_name = kubernetes_service.cloudcommons[rule.key].metadata[0].name
+              service_port = kubernetes_service.cloudcommons[rule.key].spec[0].port[0].port
             }
 
-            path = path.value.path == null ? "/${path.value.docker_tag}" : path.value.path
+            path = rule.value.path == null ? "/${rule.value.docker_tag}" : rule.value.path
           }
         }
       }
