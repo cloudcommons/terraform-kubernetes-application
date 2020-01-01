@@ -35,8 +35,8 @@ resource "kubernetes_ingress" "cloudcommons" {
     dynamic "tls" {
       for_each = var.INGRESS_TLS
       content {
-        hosts       = var.INGRESS_TLS.hosts
-        secret_name = var.INGRESS_TLS.secret_name
+        hosts       = tls.value.hosts
+        secret_name = tls.value.secret_name
       }
     }
   }
