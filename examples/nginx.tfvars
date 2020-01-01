@@ -7,16 +7,19 @@ ENV = {
 }
 VERSIONS = [
   {
+    hostname = null
     name = "latest"
     docker_tag = "latest"
     path       = "/"
   },
   {
+    hostname = null
     name = "v1.0"
     docker_tag = "latest"
     path       = "/v1.0"
   },
   {
+    hostname = null
     name = "v1.1"
     docker_tag = "latest"
     path       = "/v1.1"
