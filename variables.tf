@@ -214,7 +214,7 @@ variable "INGRESS_TLS" {
     secret_name = string
   }))
   description = "(Optional) TLS configuration for the Ingress. Default to null"
-  default     = null
+  default     = []
 }
 
 variable "INGRESS_DEFAULT_BACKEND_ENABLED" {
