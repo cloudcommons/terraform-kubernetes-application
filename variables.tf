@@ -136,30 +136,6 @@ variable "READINESS_PROBE" {
   default     = null
 }
 
-# variable "LIVENESS_PROBE_PATH" {
-#   type        = string
-#   description = "(Optional) If specified, creates a liveness probe to the given path."
-#   default     = null
-# }
-
-# variable "LIVENESS_PROBE_PORT" {
-#   type        = number
-#   description = "(Optional) Liveness probe port. Defaults to 80"
-#   default     = 80
-# }
-
-# variable "LIVENESS_PROBE_INITIAL_DELAY" {
-#   type        = number
-#   description = "(Optional) Liveness probe initial delay, in seconds. Defualt to 30"
-#   default     = 30
-# }
-
-# variable "LIVENESS_PROBE_PERIOD" {
-#   type        = number
-#   description = "(Optional) Liveness probe period after initialisation, in seconds. Defualt to 10"
-#   default     = 10
-# }
-
 variable "SERVICE_SESSION_AFFINITY" {
   type        = string
   description = "(Optional) Used to maintain session affinity. Supports ClientIP and None. Defaults to None. For more info see Kubernetes reference."
