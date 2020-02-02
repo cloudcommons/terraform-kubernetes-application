@@ -47,15 +47,15 @@ resource "kubernetes_deployment" "cloudcommons" {
         }
 
         container {
-          name  = "${local.full_name}-${replace(var.DEPLOYMENTS[count.index].name, ".", "-")}"          
-          image = "${var.DEPLOYMENTS[count.index].docker_image}:${var.DEPLOYMENTS[count.index].docker_tag}"
-          image_pull_policy = var.DEPLOYMENT_IMAGE_PULL_POLICY          
+          name              = "${local.full_name}-${replace(var.DEPLOYMENTS[count.index].name, ".", "-")}"
+          image             = "${var.DEPLOYMENTS[count.index].docker_image}:${var.DEPLOYMENTS[count.index].docker_tag}"
+          image_pull_policy = var.DEPLOYMENT_IMAGE_PULL_POLICY
 
           dynamic "env" {
             for_each = var.ENV
             content {
-              name = env.key
-              value = env.value              
+              name  = env.key
+              value = env.value
             }
           }
 
@@ -64,6 +64,7 @@ resource "kubernetes_deployment" "cloudcommons" {
             content {
               name       = volume_mount.value.name
               mount_path = volume_mount.value.mount_path
+              sub_path   = volume_mount.value.sub_path
               read_only  = volume_mount.value.read_only
             }
           }

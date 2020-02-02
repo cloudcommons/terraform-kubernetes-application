@@ -50,6 +50,7 @@ variable "DEPLOYMENT_SECRET_VOLUMES" {
   type = list(object({
     name       = string
     mount_path = string
+    sub_path   = string
     read_only  = bool
   }))
   default = []
