@@ -1,11 +1,11 @@
 resource "kubernetes_deployment" "cloudcommons" {
-  count = length(var.VERSIONS)
+  count = length(var.DEPLOYMENTS)
   metadata {
-    name      = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"
+    name      = "${local.full_name}-${replace(var.DEPLOYMENTS[count.index].name, ".", "-")}"
     namespace = local.namespace
     labels = {
       app         = local.full_name
-      version     = var.VERSIONS[count.index].name
+      version     = var.DEPLOYMENTS[count.index].name
       environment = local.environment
     }
   }
@@ -15,7 +15,7 @@ resource "kubernetes_deployment" "cloudcommons" {
     selector {
       match_labels = {
         app         = local.full_name
-        version     = var.VERSIONS[count.index].name
+        version     = var.DEPLOYMENTS[count.index].name
         environment = local.environment
       }
     }
@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "cloudcommons" {
       metadata {
         labels = {
           app         = local.full_name
-          version     = var.VERSIONS[count.index].name
+          version     = var.DEPLOYMENTS[count.index].name
           environment = local.environment
         }
       }
@@ -47,8 +47,8 @@ resource "kubernetes_deployment" "cloudcommons" {
         }
 
         container {
-          name  = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"          
-          image = "${var.DEPLOYMENT_IMAGE}:${var.VERSIONS[count.index].docker_tag}"
+          name  = "${local.full_name}-${replace(var.DEPLOYMENTS[count.index].name, ".", "-")}"          
+          image = "${var.DEPLOYMENTS[count.index].docker_image}:${var.DEPLOYMENTS[count.index].docker_tag}"
           image_pull_policy = var.DEPLOYMENT_IMAGE_PULL_POLICY          
 
           dynamic "env" {
@@ -90,7 +90,7 @@ resource "kubernetes_deployment" "cloudcommons" {
             for_each = var.LIVENESS_PROBE != null ? [var.LIVENESS_PROBE] : []
             content {
               http_get {
-                path = var.VERSIONS[count.index].path
+                path = var.DEPLOYMENTS[count.index].path
                 port = var.SERVICE_PORT
               }
 
@@ -104,7 +104,7 @@ resource "kubernetes_deployment" "cloudcommons" {
             for_each = var.READINESS_PROBE != null ? [var.READINESS_PROBE] : []
             content {
               http_get {
-                path = var.VERSIONS[count.index].path
+                path = var.DEPLOYMENTS[count.index].path
                 port = var.SERVICE_PORT
               }
 

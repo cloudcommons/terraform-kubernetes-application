@@ -3,24 +3,21 @@ variable "APP_NAME" {
   description = "(Required) Application name"
 }
 
-variable "DEPLOYMENT_IMAGE" {
-  type        = string
-  description = "(Required) Deployment Docker Image, including private registry, when required. Do not include tag"
-}
-
-variable "VERSIONS" {
+variable "DEPLOYMENTS" {
   type = list(object({
-    hostname   = string
-    name       = string
-    path       = string
-    docker_tag = string    
+    hostname     = string
+    name         = string
+    path         = string
+    docker_image = string
+    docker_tag   = string
   }))
-  description = "(Optional) List of Ingress path rules"
+  description = "(Required) List of backends to deploy, and routes to get to them"
   default = [{
-    hostname   = null
-    name       = "latest"
-    path       = null
-    docker_tag = "latest"    
+    hostname     = null
+    name         = "latest"
+    path         = null
+    docker_image = null
+    docker_tag   = "latest"
   }]
 }
 
@@ -195,6 +192,6 @@ variable "INGRESS_TLS" {
 
 variable "INGRESS_DEFAULT_BACKEND_ENABLED" {
   type        = bool
-  description = "(Optional) Disables the default back-end for the ingress. Defaults to false. If true, the first version defined in VERSIONS will be used as default back-end"
+  description = "(Optional) Disables the default back-end for the ingress. Defaults to false. If true, the first version defined in DEPLOYMENTS will be used as default back-end"
   default     = false
 }

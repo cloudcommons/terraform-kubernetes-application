@@ -1,11 +1,11 @@
 resource "kubernetes_service" "cloudcommons" {
-  count = var.SERVICE_ENABLED == true ? length(var.VERSIONS) : 0
+  count = var.SERVICE_ENABLED == true ? length(var.DEPLOYMENTS) : 0
   metadata {
-    name = "${local.full_name}-${replace(var.VERSIONS[count.index].name, ".", "-")}"
+    name = "${local.full_name}-${replace(var.DEPLOYMENTS[count.index].name, ".", "-")}"
     namespace = local.namespace
     labels = {
       app         = local.full_name
-      version     = var.VERSIONS[count.index].name
+      version     = var.DEPLOYMENTS[count.index].name
       environment = local.environment
     }
   }
@@ -13,7 +13,7 @@ resource "kubernetes_service" "cloudcommons" {
   spec {
     selector = {
         app         = local.full_name
-        version     = var.VERSIONS[count.index].name
+        version     = var.DEPLOYMENTS[count.index].name
         environment = local.environment
     }
 

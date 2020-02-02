@@ -5,7 +5,7 @@ This Terraform module mimics (most) the Helm chart out of the box features and b
 ## Features
 
 * Creates a new namespace for the application+environment
-* Creates deployment for one or more Docker container versions. Ingress rules are used to route traffic to the right service
+* Creates deployment for one or more Docker container deploymens. Ingress rules are used to route traffic to the right service
   * Possiblity of configure liveness and readiness probe
   * Possibility of mounting secrets as volues
 * One service per deployment is created. Intended to use ClusterIP + Nginx-ingress

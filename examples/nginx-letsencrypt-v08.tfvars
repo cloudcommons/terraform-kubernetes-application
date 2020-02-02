@@ -1,28 +1,30 @@
 APP_NAME            = "cloudcommons-nginx"
 DEPLOYMENT_REPLICAS = 1
-DEPLOYMENT_IMAGE    = "nginxdemos/hello"
 ENV = {
   ENV1 = "value1"
   ENV2 = "value2"
 }
-VERSIONS = [
+DEPLOYMENTS = [
   {
-    hostname   = "my.nginx.local"
-    name       = "latest"
-    docker_tag = "latest"
-    path       = "/"
+    hostname     = "my.nginx.local"
+    name         = "latest"
+    docker_image = "nginxdemos/hello"
+    docker_tag   = "latest"
+    path         = "/"
   },
   {
-    hostname   = "my.nginx.local"
-    name       = "v1.0"
-    docker_tag = "latest"
-    path       = "/v1.0"
+    hostname     = "my.nginx.local"
+    name         = "v1.0"
+    docker_image = "nginxdemos/hello"
+    docker_tag   = "latest"
+    path         = "/v1.0"
   },
   {
-    hostname   = "my.nginx.local"
-    name       = "v1.1"
-    docker_tag = "latest"
-    path       = "/v1.1"
+    hostname     = "my.nginx.local"
+    name         = "v1.1"
+    docker_image = "nginxdemos/hello"
+    docker_tag   = "latest"
+    path         = "/v1.1"
   }
 ]
 SERVICE_PORT = 80

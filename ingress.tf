@@ -8,7 +8,7 @@ resource "kubernetes_ingress" "cloudcommons" {
 
   spec {
     dynamic "backend" {
-      for_each = length(var.VERSIONS) > 0 && var.SERVICE_ENABLED == true && var.INGRESS_DEFAULT_BACKEND_ENABLED == true ? [1] : [] # Default back-end
+      for_each = length(var.DEPLOYMENTS) > 0 && var.SERVICE_ENABLED == true && var.INGRESS_DEFAULT_BACKEND_ENABLED == true ? [1] : [] # Default back-end
       content {
         service_name = kubernetes_service.cloudcommons[backend.key].metadata[0].name
         service_port = kubernetes_service.cloudcommons[backend.key].spec[0].port[0].port
@@ -16,7 +16,7 @@ resource "kubernetes_ingress" "cloudcommons" {
     }
 
     dynamic "rule" {
-      for_each = var.SERVICE_ENABLED == true ? var.VERSIONS : []
+      for_each = var.SERVICE_ENABLED == true ? var.DEPLOYMENTS : []
       content {
         host = rule.value.hostname
         http {
