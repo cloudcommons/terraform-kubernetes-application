@@ -4,7 +4,7 @@ locals {
 
 resource "kubernetes_namespace" "cloudcommons" {
   metadata {
-    name = "${var.APP_NAME}-${local.environment}"
+    name = "${var.APP_NAME}-${local.environment}-${var.UID}"
     annotations = var.NAMESPACE_ANNOTATIONS
     labels = var.LABELS    
   }

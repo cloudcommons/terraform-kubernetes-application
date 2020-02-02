@@ -3,6 +3,11 @@ variable "APP_NAME" {
   description = "(Required) Application name"
 }
 
+variable "UID" {
+  type = string
+  description = "(Required) A unique identifier to attach to the namespace"
+}
+
 variable "DEPLOYMENTS" {
   type = list(object({
     hostname     = string
