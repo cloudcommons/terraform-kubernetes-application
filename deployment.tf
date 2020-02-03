@@ -41,7 +41,8 @@ resource "kubernetes_deployment" "cloudcommons" {
           for_each = var.DEPLOYMENTS[count.index].volume_mounts
           content {
             secret {
-              secret_name = volume.value.name
+              name = volume.value.name
+              secret_name = volume.value.secretName
             }
           }
         }

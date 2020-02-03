@@ -17,6 +17,7 @@ variable "DEPLOYMENTS" {
     docker_tag   = string
     volume_mounts = list(object({
       name       = string
+      secretName = string
       mount_path = string
       sub_path   = string
       read_only  = bool
