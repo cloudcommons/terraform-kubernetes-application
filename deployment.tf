@@ -40,8 +40,8 @@ resource "kubernetes_deployment" "cloudcommons" {
         dynamic "volume" {
           for_each = var.DEPLOYMENTS[count.index].volume_mounts
           content {
-            secret {
-              name = volume.value.name
+            name = volume.value.name
+            secret {              
               secret_name = volume.value.secretName
             }
           }
