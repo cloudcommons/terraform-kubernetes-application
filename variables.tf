@@ -4,7 +4,7 @@ variable "APP_NAME" {
 }
 
 variable "UID" {
-  type = string
+  type        = string
   description = "(Required) A unique identifier to attach to the namespace"
 }
 
@@ -15,6 +15,12 @@ variable "DEPLOYMENTS" {
     path         = string
     docker_image = string
     docker_tag   = string
+    volume_mounts = list(object({
+      name       = string
+      mount_path = string
+      sub_path   = string
+      read_only  = bool
+    }))
   }))
   description = "(Required) List of backends to deploy, and routes to get to them"
   default = [{
@@ -23,6 +29,7 @@ variable "DEPLOYMENTS" {
     path         = null
     docker_image = null
     docker_tag   = "latest"
+    volume_mounts = []
   }]
 }
 
@@ -42,18 +49,6 @@ variable "DEPLOYMENT_IMAGE_PULL_POLICY" {
   type        = string
   description = "(Optional) Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. For more info see Kubernetes reference"
   default     = "Always"
-}
-
-
-# TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
-variable "DEPLOYMENT_SECRET_VOLUMES" {
-  type = list(object({
-    name       = string
-    mount_path = string
-    sub_path   = string
-    read_only  = bool
-  }))
-  default = []
 }
 
 variable "DEPLOYMENT_REPLICAS" {

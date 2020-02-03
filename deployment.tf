@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "cloudcommons" {
         }
         # TODO This strategy support secret mounts only. Find a way to support all (or more) mount types
         dynamic "volume" {
-          for_each = var.DEPLOYMENT_SECRET_VOLUMES
+          for_each = var.DEPLOYMENTS[count.index].volume_mounts
           content {
             secret {
               secret_name = volume.value.name
@@ -60,7 +60,7 @@ resource "kubernetes_deployment" "cloudcommons" {
           }
 
           dynamic "volume_mount" {
-            for_each = var.DEPLOYMENT_SECRET_VOLUMES
+            for_each = var.DEPLOYMENTS[count.index].volume_mounts
             content {
               name       = volume_mount.value.name
               mount_path = volume_mount.value.mount_path
