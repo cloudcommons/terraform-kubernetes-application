@@ -65,8 +65,8 @@ variable "DEPLOYMENT_RESOURCE_LIMITS" {
   })
   description = "(Optional) Deployment resource limits. Defaults to cpu (0.5) and memory (512Mi)"
   default = {
-    cpu    = "0.5"
-    memory = "512Mi"
+    cpu    = 0
+    memory = 0
   }
 }
 
@@ -77,8 +77,8 @@ variable "DEPLOYMENT_RESOURCE_REQUESTS" {
   })
   description = "(Optional) Deployment resource requests. Defaults to cpu (250m) and memory (50Mi)"
   default = {
-    cpu    = "250m"
-    memory = "50Mi"
+    cpu    = 0
+    memory = 0
   }
 }
 
